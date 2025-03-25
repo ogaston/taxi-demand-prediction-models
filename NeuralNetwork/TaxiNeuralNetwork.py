@@ -6,10 +6,10 @@ from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
 
 # Load dataset
-df = pd.read_csv("../Data/taxis_dataset.csv")
+df = pd.read_csv("../Data/taxis_dataset_final.csv")
 
 # Select features and target
-input_data = df[['pickup_longitude', 'pickup_latitude', 'year', 'month', 'day', 'hour']]
+input_data = df[['pickup_longitude', 'pickup_latitude', 'year', 'month', 'day', 'hour', 'is_holiday', 'temperature']]
 expected_prediction = df['demand']
 
 # Normalize features
@@ -22,8 +22,8 @@ X_train, X_test, y_train, y_test = train_test_split(input_data_scaled, expected_
 
 # Build Neural Network
 model = keras.Sequential([
-    keras.layers.Dense(32, activation='relu', input_shape=(X_train.shape[1],)),
-    keras.layers.Dense(16, activation='relu'),
+    keras.layers.Dense(20, activation='relu', input_shape=(X_train.shape[1],)),
+    keras.layers.Dense(10, activation='relu'),
     keras.layers.Dense(1)  # Regression output
 ])
 

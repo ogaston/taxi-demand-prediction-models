@@ -18,12 +18,17 @@ stats = {
         "Max": df["pickup_longitude"].max(),
         "Mean": df["pickup_longitude"].mean(),
     },
+    "Num Trips": {
+        "Min": df["demand"].min(),
+        "Max": df["demand"].max(),
+        "Mean": df["demand"].mean(),
+    },
 }
 
-count_negative = (df["pickup_latitude"] < 0).sum()
+count_negative = (df["pickup_latitude"] <= 0).sum()
 print(f"Count of pickup_latitude less than 0: {count_negative}")
 
-count_negative = (df["pickup_longitude"] > 0).sum()
+count_negative = (df["pickup_longitude"] >= 0).sum()
 print(f"Count of pickup_longitude more than 0: {count_negative}")
 
 # Print results

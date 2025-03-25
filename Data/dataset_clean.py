@@ -30,10 +30,10 @@ df = df.dropna()
 df = df.drop_duplicates()
 
 # Delete negative latitude values because NY is around 40
-df = df[df["pickup_latitude"] >= 0]
+df = df[df["pickup_latitude"] > 0]
 
 # Delete positive latitude values because NY is around -73
-df = df[df["pickup_longitude"] <= 0]
+df = df[df["pickup_longitude"] < 0]
 
 # Segmentation of the pickup datetime 
 df['year'] = df['tpep_pickup_datetime'].dt.year
