@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow import keras
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
 # Load dataset
 df = pd.read_csv("../Data/taxis_dataset.csv")
@@ -41,3 +42,19 @@ sample_location = np.array([['-73.990', '40.750', '2015', '01', '15', '19']])
 sample_location_scaled = scaler.transform(sample_location)
 predicted_taxis = model.predict(sample_location_scaled)
 print(f"Predicted number of taxis: {predicted_taxis[0][0]}")
+
+y_pred = model.predict(X_test).flatten()  
+y_true = y_test.values
+
+plt.figure(figsize=(8, 6))
+plt.scatter(y_true, y_pred, alpha=0.5)
+plt.title('Comparación entre valores reales y predichos')
+plt.xlabel('Demanda real (y_test)')
+plt.ylabel('Demanda predicha (y_pred)')
+
+# Línea de referencia y = x para ver la perfección de predicción
+min_val = min(y_true.min(), y_pred.min())
+max_val = max(y_true.max(), y_pred.max())
+plt.plot([min_val, max_val], [min_val, max_val], 'r--')
+
+plt.show()
