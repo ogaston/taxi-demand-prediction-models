@@ -6,11 +6,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
 # Load dataset
-df = pd.read_csv("dataset.csv")
+df = pd.read_csv("../Data/taxis_dataset.csv")
 
 # Select features and target
-input_data = df[['pickup_longitud', 'pickup_latitud', 'year', 'month', 'day', 'hour']]
-expected_prediction = df['taxi_demand']
+input_data = df[['pickup_longitude', 'pickup_latitude', 'year', 'month', 'day', 'hour']]
+expected_prediction = df['demand']
 
 # Normalize features
 scaler = StandardScaler()
