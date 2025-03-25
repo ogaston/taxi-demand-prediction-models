@@ -2,3 +2,9 @@ Data/taxis_dataset.csv
 Data/yellow_tripdata.csv
 Documents/
 .idea/
+.venv/
+Data/.weather_cache.sqlite
+Data/taxs_dataset.csv
+Data/taxi_demand.db
+Data/taxis_dataset_final.csv
+Data/taxis_dataset_with_features.csv
