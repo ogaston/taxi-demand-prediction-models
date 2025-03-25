@@ -1,6 +1,7 @@
 import pandas as pd
 
-df = pd.read_csv('yellow_tripdata.csv', parse_dates=['tpep_pickup_datetime'])
+dataset_root_folder = '../Data/'
+df = pd.read_csv(dataset_root_folder + 'yellow_tripdata.csv', parse_dates=['tpep_pickup_datetime'])
 
 # Delete columns
 df = df.drop([
@@ -47,4 +48,4 @@ df['pickup_latitude'] = df['pickup_latitude'].round(3)
 df_grouped = df.groupby(['year', 'month', 'day', 'hour', 'pickup_longitude', 'pickup_latitude']).size().reset_index(name='demand')
 
 # Save the new dataset
-df_grouped.to_csv('taxis_dataset.csv', index=False)
+df_grouped.to_csv(dataset_root_folder + 'taxis_dataset.csv', index=False)
