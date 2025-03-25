@@ -1,10 +1,9 @@
-import pandas as pd
-import numpy as np
-import tensorflow as tf
-from tensorflow import keras
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
+import joblib
 import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from tensorflow import keras
 
 # Load dataset
 df = pd.read_csv("../Data/taxis_dataset.csv")
@@ -18,7 +17,8 @@ scaler = StandardScaler()
 input_data_scaled = scaler.fit_transform(input_data)
 
 # Split dataset
-X_train, X_test, y_train, y_test = train_test_split(input_data_scaled, expected_prediction, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(input_data_scaled, expected_prediction, test_size=0.2,
+                                                    random_state=42)
 
 # Build Neural Network
 model = keras.Sequential([
@@ -37,13 +37,16 @@ model.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_test, y
 test_loss, test_mae = model.evaluate(X_test, y_test)
 print(f"Test MAE: {test_mae}")
 
-# Predict
-sample_location = np.array([['-73.990', '40.750', '2015', '01', '15', '19']])
-sample_location_scaled = scaler.transform(sample_location)
-predicted_taxis = model.predict(sample_location_scaled)
-print(f"Predicted number of taxis: {predicted_taxis[0][0]}")
+# Save the model to use it later
+model_storage_location = '../Data/taxi_model.keras'
+model.save(model_storage_location)
 
-y_pred = model.predict(X_test).flatten()  
+# Save the scaler
+scaler_storage_location = '../Data/scaler.pkl'
+joblib.dump(scaler, scaler_storage_location)
+
+# Graph of prediction vs value
+y_pred = model.predict(X_test).flatten()
 y_true = y_test.values
 
 plt.figure(figsize=(8, 6))
